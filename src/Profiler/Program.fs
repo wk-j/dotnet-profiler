@@ -6,6 +6,18 @@ mono --profile=log:report temp/a.exe
 *)
 
 open StartProcess;
+open System.Diagnostics
+
+let startProcess cmd args =
+    use ps = new Process()
+    let info = ProcessStartInfo()
+    info.FileName <- cmd
+    info.Arguments <- args
+    info.UseShellExecute <- true
+
+    ps.StartInfo <- info
+    ps.Start() |> ignore
+    ps.WaitForExit()
 
 [<EntryPoint>]
 let main argv =
@@ -15,6 +27,10 @@ let main argv =
     let compile = "-out:{out} {source}" .Replace("{out}", out) .Replace("{source}", source)
     let report =  "--profile=log:report {out}" .Replace("{out}", out)
 
-    Processor.StartProcess("csc", compile)
-    Processor.StartProcess("mono", report)
+    printfn "csc %s" compile
+    printfn "mono %s" report
+
+    startProcess "csc" compile
+    startProcess "mono" report
+
     0
