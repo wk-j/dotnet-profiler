@@ -10,5 +10,6 @@ packages
 tools
 publish
 temp
+BenchmarkDotNet.Artifacts
 
 .paket

@@ -17,13 +17,14 @@ let startProcess cmd args =
 [<EntryPoint>]
 let main argv =
     let source = argv.[0]
+    let fullName = FileInfo(source).FullName
     let out = Path.Combine(Path.GetTempPath(), "a.exe")
 
     if File.Exists(out) then File.Delete(out)
 
     let compile = "-out:{out} {source}"
                     .Replace("{out}", out)
-                    .Replace("{source}", source)
+                    .Replace("{source}", fullName)
     let report  = "--profile=log:report {out}"
                     .Replace("{out}", out)
 
