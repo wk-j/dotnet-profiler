@@ -5,8 +5,8 @@ using PS = StartProcess.Processor;
 
 using ProjectParser;
 
-var name = "Profiler";
-var project = $"src/{name}/{name}.fsproj";
+var name = "Profiler.Net";
+var project = $"src/{name}/{name}.csproj";
 var info = Parser.Parse(project);
 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 var currentDir = new System.IO.DirectoryInfo(".").FullName;
@@ -32,10 +32,6 @@ Task("Publish-Nuget")
 
 Task("Uninstall").Does(() => {
     PS.StartProcess($"dotnet tool uninstall -g wk.{name}");
-});
-
-Task("Run").Does(() => {
-    PS.StartProcess($"dotnet run --project src/MergePdf/MergePdf.fsproj resources/Flexi1.pdf resources/Flexi2.pdf resources/Flexi3.pdf temp/output.pdf");
 });
 
 Task("Install")

@@ -5,8 +5,9 @@ csc -out:temp/a.exe  resources/Program.cs
 mono --profile=log:report temp/a.exe
 *)
 
-open StartProcess;
 open System.Diagnostics
+
+type PS = StartProcess.Processor
 
 let startProcess cmd args =
     use ps = new Process()
@@ -24,13 +25,15 @@ let main argv =
     let source = argv.[0]
     let out = Path.Combine(Path.GetTempPath(), "a.exe")
 
-    let compile = "-out:{out} {source}" .Replace("{out}", out) .Replace("{source}", source)
-    let report =  "--profile=log:report {out}" .Replace("{out}", out)
+    let compile = "csc -out:{out} {source}"
+                    .Replace("{out}", out)
+                    .Replace("{source}", source)
+    let report  = "mono --profile=log:report {out}"
+                    .Replace("{out}", out)
 
-    printfn "csc %s" compile
-    printfn "mono %s" report
+    startProcess "mono" "--version"
 
-    startProcess "csc" compile
-    startProcess "mono" report
-
+    //PS.StartProcess("mono --version")
+    //PS.StartProcess (sprintf "%s" compile)
+    //PS.StartProcess (sprintf "%s" report)
     0
