@@ -5,8 +5,8 @@ using PS = StartProcess.Processor;
 
 using ProjectParser;
 
-var name = "Profiler.Net";
-var project = $"src/{name}/{name}.csproj";
+var name = "Profiler";
+var project = $"src/{name}/{name}.fsproj";
 var info = Parser.Parse(project);
 var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 var currentDir = new System.IO.DirectoryInfo(".").FullName;
