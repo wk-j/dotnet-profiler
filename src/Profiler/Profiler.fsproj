@@ -5,7 +5,7 @@
     <PackageId>wk.Profiler</PackageId>
     <PackAsTool>true</PackAsTool>
     <Version>0.1.0</Version>
-    <ToolCommandName>wk-profile</ToolCommandName>
+    <ToolCommandName>wk-profiler</ToolCommandName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Program.fs" />

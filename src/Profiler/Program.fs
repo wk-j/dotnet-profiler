@@ -25,9 +25,13 @@ let main argv =
     let compile = "-out:{out} {source}"
                     .Replace("{out}", out)
                     .Replace("{source}", fullName)
-    let report  = "--profile=log:report {out}"
-                    .Replace("{out}", out)
 
-    startProcess "csc" compile
-    startProcess "mono" report
+    let report out = "--profile=log:report {out}"
+                        .Replace("{out}", out)
+
+    if source.EndsWith ".exe" then
+        startProcess "mono" (report source)
+    else
+        startProcess "csc" compile
+        startProcess "mono" (report out)
     0
